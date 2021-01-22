@@ -3,7 +3,9 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const errorHandler = require("./middleware/error");
 const colors = require("colors");
+const connectDB = require("./config/db");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -11,6 +13,7 @@ dotenv.config({ path: "./config/config.env" });
 // Routes
 
 // Connect databse
+connectDB();
 
 const app = express();
 
@@ -34,7 +37,9 @@ app.get("/api/v1/", (req, res) => {
 });
 
 // Routes above errorhandler
+app.use(errorHandler);
 
+// set dev port (localhost:5000)
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
