@@ -11,6 +11,7 @@ const connectDB = require("./config/db");
 dotenv.config({ path: "./config/config.env" });
 
 // Routes
+const userRoutes = require("./routes/user");
 
 // Connect databse
 connectDB();
@@ -32,6 +33,8 @@ if (process.env.NODE_ENV === "development") {
 app.use(cors());
 
 // Mount routes
+app.use("/api/v1", userRoutes);
+
 app.get("/api/v1/", (req, res) => {
   res.send("Hello from express");
 });
